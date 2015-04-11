@@ -1,0 +1,54 @@
+# Color sequences
+
+#
+# COPYRIGHT (C) 2015 Alexander Köster.
+# http://woalk.com  https://github.com/woalk
+#
+
+# Use $_C_COLOR (e.g. $_C_RED) to set terminal text color to the desired one.
+# Use $_BC_COLOR (e.g. $_BC_RED) to set terminal background color to the desired one.
+# Use $_C_DEFAULT or simply $_C_ to unset the text color change.
+# Same for background color, $_BC_DEFAULT.
+_C_BLACK="$(tput setaf 0)"
+_C_RED="$(tput setaf 1)"
+_C_GREEN="$(tput setaf 2)"
+_C_YELLOW="$(tput setaf 3)"
+_C_BLUE="$(tput setaf 4)"
+_C_MAGENTA="$(tput setaf 5)"
+_C_CYAN="$(tput setaf 6)"
+_C_WHITE="$(tput setaf 7)"
+_C_BBLACK="$(tput setaf 0)"
+
+_C_BOLD="$(tput bold)"
+
+_C_BRED="$_C_BOLD$(tput setaf 1)"
+_C_BGREEN="$_C_BOLD$(tput setaf 2)"
+_C_BYELLOW="$_C_BOLD$(tput setaf 3)"
+_C_BBLUE="$_C_BOLD$(tput setaf 4)"
+_C_BMAGENTA="$_C_BOLD$(tput setaf 5)"
+_C_BCYAN="$_C_BOLD$(tput setaf 6)"
+_C_BWHITE="$_C_BOLD$(tput setaf 7)"
+
+_C_DEFAULT="$(tput setaf 9; tput sgr0)"
+_C_="${_C_DEFAULT}"
+
+
+_BC_BLACK="$(tput setab 0)"
+_BC_RED="$(tput setab 1)"
+_BC_GREEN="$(tput setab 2)"
+_BC_YELLOW="$(tput setab 3)"
+_BC_BLUE="$(tput setab 4)"
+_BC_MAGENTA="$(tput setab 5)"
+_BC_CYAN="$(tput setab 6)"
+_BC_WHITE="$(tput setab 7)"
+_BC_DEFAULT="$(tput setab 9)"
+_BC_="${_BC_DEFAULT}"
+
+colorhelp ()
+{
+    echo 'Color sequences
+Use $_C_COLOR (e.g. $_C_RED) to set terminal text color to the desired one.
+Use $_BC_COLOR (e.g. $_BC_RED) to set terminal background color to the desired one.
+Use $_C_DEFAULT or simply $_C_ to unset the text color change.
+Same for background color, $_BC_DEFAULT.'
+}
