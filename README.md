@@ -41,6 +41,16 @@ Your bash prompt (which is `$PS1` technically and e.g. `user@computer:~$ ` visua
 Also (if you installed this feature for everyone on your machine), if you log in using root or `sudo -s`, your bash prompt will be showing in red color that you did so, so that you always can easily see whether you're running a command as root or not.
 Having Git installed, your bash prompt shows you the current branch and if there are uncommitted changes when you enter a git repo with your terminal. (using the `__git_ps1` function made for exactly this purpose).
 
+Following can be **customized** by setting environment variables in an bashrc file (add `export VARIABLE="value"`):
+- `WOALK_USERCOLOR` -- The color in which the username is colored. Should be set in each user's .bashrc file.
+- `WOALK_MACHINECOLOR` -- The color in which the host name (@...) is colored. Should only be set in the global bashrc file, so that it is the same for everyone.
+- `WOALK_DIRECTORYCOLOR` -- The color in which the current directory is colored.
+- `WOALK_GITCOLOR`-- The color in which the git info (current branch & branch state) is colored.
+Use one of the colors from ${_C_...} or an escape sequence color as variable value.
+Every variable can contain both, foreground and background color.
+Don't include a printable character in these variables, otherwise your bash input may get distorted.
+
+You can add an additional \*.rc file to your `$BASHCUSTOMIZE_DIR` named `configs.rc` (and include it in your bashrc if you did it manually), and store all the variable exports there. This makes identifying and sorting of the configuration variables easier.
 
 ### *More features may be added in the future.*
 Just keep this repo up-to-date using `git pull` on your local clone to get updates when available.

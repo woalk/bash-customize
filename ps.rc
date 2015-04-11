@@ -6,6 +6,17 @@
 # http://woalk.com  https://github.com/woalk
 # 
 
+# Following can be customized by setting environment variables in an bashrc file ( export VARIABLE="value" ):
+# Don't include a printable character in these variables, otherwise your bash input may get distorted.
+# - WOALK_USERCOLOR       The color in which the username is colored. Should be set in each user's .bashrc file.
+#                         Use one of the colors from ${_C_...} or an escape sequence color.
+# - WOALK_MACHINECOLOR    The color in which the host name (@...) is colored.
+#                         Should only be set in the global bashrc file, so that it is the same for everyone.
+# - WOALK_DIRECTORYCOLOR  The color in which the current directory is colored.
+# - WOALK_GITCOLOR        The color in which the git info (current branch & branch state) is colored.
+# Every variable can contain both, foreground and background color.
+
+
 # For PS_ variables, the following escape codes are defined:
 #  \a : an ASCII bell character (07)
 #  \d : the date in "Weekday Month Date" format (e.g., "Tue May 26")
@@ -40,16 +51,45 @@
 ### PS1 config.
 
 if [ "`id -u`" -eq 0 ]; then
-    USERCOLOR="${_C_BRED}"
-    BASHUSERSIGN="\[${_C_RED}\]#\[${_C_}\]"
+    WOALK_USERCOLOR="${_C_BRED}"
+    WOALK_BASHUSERSIGN="\[${_C_RED}\]#\[${_C_}\]"
 else
-    USERCOLOR="${_C_BBLUE}"
-    BASHUSERSIGN="\[${_C_GREEN}\]\$\[${_C_}\]"
+    WOALK_USERCOLOR="${_C_BBLUE}"
+    WOALK_BASHUSERSIGN="\[${_C_GREEN}\]\$\[${_C_}\]"
 fi
 
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 
-PS1="\[${_C_BBLACK}\]${debian_chroot:+($debian_chroot)}\[${USERCOLOR}\]\u\[${_C_BCYAN}\]@\h:\[${_C_BYELLOW}\]\w\[${_C_}${_C_YELLOW}\]\$(__git_ps1)\[${_C_}\] ${BASHUSERSIGN} "
+__w_ps_getusercolor ()
+{
+    echo "$WOALK_USERCOLOR"
+}
+
+__w_ps_getmachinecolor ()
+{
+    if [ -z "${WOALK_MACHINECOLOR+x}" ]; then
+        WOALK_MACHINECOLOR="${_C_BCYAN}"
+    fi
+    echo "$WOALK_MACHINECOLOR"
+}
+
+__w_ps_getdircolor ()
+{
+    if [ -z "${WOALK_DIRECTORYCOLOR+x}" ]; then
+        WOALK_DIRECTORYCOLOR="${_C_BYELLOW}"
+    fi
+    echo "${WOALK_DIRECTORYCOLOR}"
+}
+
+__w_ps_getgitcolor ()
+{
+    if [ -z "${WOALK_GITCOLOR+x}" ]; then
+        WOALK_GITCOLOR="${_C_YELLOW}"
+    fi
+    echo "${WOALK_GITCOLOR}"
+}
+
+PS1="\[${_C_BBLACK}\]${debian_chroot:+($debian_chroot)}\[\$(__w_ps_getusercolor)\]\u\[${_C_}${_BC_}\$(__w_ps_getmachinecolor)\]@\h:\[${_C_}${_BC_}\$(__w_ps_getdircolor)\]\w\[${_C_}${_BC_}\$(__w_ps_getgitcolor)\]\$(__git_ps1)\[${_C_}${_BC_}\] ${WOALK_BASHUSERSIGN} "
 
 ### End PS1 config.
