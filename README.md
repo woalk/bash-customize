@@ -41,6 +41,15 @@ Your bash prompt (which is `$PS1` technically and e.g. `user@computer:~$ ` visua
 Also (if you installed this feature for everyone on your machine), if you log in using root or `sudo -s`, your bash prompt will be showing in red color that you did so, so that you always can easily see whether you're running a command as root or not.
 Having Git installed, your bash prompt shows you the current branch and if there are uncommitted changes when you enter a git repo with your terminal. (using the `__git_ps1` function made for exactly this purpose).
 
+**You need to have to comment out or remove the following lines** from each user's `.bashrc` file if you installed bash-customize for all users ( which means in `/etc/bash.bashrc` or similar file):
+```
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+```
+
 Following can be **customized** by setting environment variables in an bashrc file (add `export VARIABLE="value"`):
 - `WOALK_USERCOLOR` -- The color in which the username is colored. Should be set in each user's .bashrc file.
 - `WOALK_MACHINECOLOR` -- The color in which the host name (@...) is colored. Should only be set in the global bashrc file, so that it is the same for everyone.
