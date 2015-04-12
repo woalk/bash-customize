@@ -63,6 +63,7 @@ Following can be **customized** by setting environment variables in an bashrc fi
 - `WOALK_MACHINECOLOR` -- The color in which the host name (@...) is colored. Should only be set in the global bashrc file, so that it is the same for everyone.
 - `WOALK_DIRECTORYCOLOR` -- The color in which the current directory is colored.
 - `WOALK_GITCOLOR`-- The color in which the git info (current branch & branch state) is colored.
+- `WOALK_ROOTUSERCOLOR` -- The color in which the username "root" is colored. Should only be set in the global bashrc file, so that it is the same for everyone.
 
 Use one of the colors from `${_C_...}` or an escape sequence color as variable value.
 Every variable can contain both, foreground and background color.

@@ -10,6 +10,8 @@
 # Don't include a printable character in these variables, otherwise your bash input may get distorted.
 # - WOALK_USERCOLOR       The color in which the username is colored. Should be set in each user's .bashrc file.
 #                         Use one of the colors from ${_C_...} or an escape sequence color.
+# - WOALK_ROOTUSERCOLOR   The color in which the username "root" is colored. Bold red per default.
+#                         Should only be set in the global bashrc file, so that it is the same for everyone.
 # - WOALK_MACHINECOLOR    The color in which the host name (@...) is colored.
 #                         Should only be set in the global bashrc file, so that it is the same for everyone.
 # - WOALK_DIRECTORYCOLOR  The color in which the current directory is colored.
@@ -56,7 +58,11 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 __w_ps_getusercolor ()
 {
     if [ "`id -u`" -eq 0 ]; then
-        WOALK_USERCOLOR="${_C_BRED}"
+        if [ -z "${WOALK_ROOTUSERCOLOR+x}" ]; then
+            WOALK_USERCOLOR="${_C_BRED}"
+        else
+            WOALK_USERCOLOR="${WOALK_ROOTUSERCOLOR}"
+        fi
     else
         if [ -z "${WOALK_USERCOLOR+x}" ]; then
             WOALK_USERCOLOR="${_C_BBLUE}"
