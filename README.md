@@ -5,7 +5,8 @@ This is a collection of all the self-written bash "extensions" I use for myself.
 In the main part this is a git repo to store these scripts for myself -- but feel free to clone and use these scripts just as you want if you find them useful.
 
 ## Installation
-When you clone the repo (via `git clone https://github.com/woalk/bash-customization.git`) or download and extract it, you get a directory with a bunch of \*.rc files.
+When you clone the repo (via `git clone https://github.com/woalk/bash-customize.git`) or download and extract it, you get a directory with a bunch of \*.rc files.
+
 **If you want to install just for yourself**, add the following snippet to your `~/.bashrc`, `~/.bash_profile` or `~/.profile` file (your choice, which of them):
 ```sh
 BASHCUSTOMIZE_DIR="/path/to/bash-customize"
@@ -21,8 +22,11 @@ Now add the snippet above, with the correct directory path, of course, to `/etc/
 
 ## Feature documentation
 ### Bash colors.
+
 `File:` `colors.rc`
+
 `Depends on:` *`no feature, independent`*
+
 `Needs applications:` `tput`
 
 With this bash extension, you get an easier way to color expressions you write in bash or in own scripts.
@@ -33,7 +37,9 @@ Use the command `colorhelp` at any time to get a short help on which color is na
 
 ### PS (Bash prompt) configuration
 `File:` `ps.rc`
+
 `Depends on:` `colors.rc`
+
 `Needs applications:` `git`
 
 With this, your bash becomes way more individual and comfortable.
@@ -42,20 +48,23 @@ Also (if you installed this feature for everyone on your machine), if you log in
 Having Git installed, your bash prompt shows you the current branch and if there are uncommitted changes when you enter a git repo with your terminal. (using the `__git_ps1` function made for exactly this purpose).
 
 **You need to have to comment out or remove the following lines** from each user's `.bashrc` file if you installed bash-customize for all users ( which means in `/etc/bash.bashrc` or similar file):
-```
+```sh
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 ```
+(on Ubuntu, may vary on other systems, just look after the line(s) setting the `PS1` variable)
 
 Following can be **customized** by setting environment variables in an bashrc file (add `export VARIABLE="value"`):
+
 - `WOALK_USERCOLOR` -- The color in which the username is colored. Should be set in each user's .bashrc file.
 - `WOALK_MACHINECOLOR` -- The color in which the host name (@...) is colored. Should only be set in the global bashrc file, so that it is the same for everyone.
 - `WOALK_DIRECTORYCOLOR` -- The color in which the current directory is colored.
 - `WOALK_GITCOLOR`-- The color in which the git info (current branch & branch state) is colored.
-Use one of the colors from ${_C_...} or an escape sequence color as variable value.
+
+Use one of the colors from `${_C_...}` or an escape sequence color as variable value.
 Every variable can contain both, foreground and background color.
 Don't include a printable character in these variables, otherwise your bash input may get distorted.
 
@@ -68,4 +77,5 @@ Just keep this repo up-to-date using `git pull` on your local clone to get updat
 ```
 COPYRIGHT (C) 2015 Alexander Köster.
 http://woalk.com  https://github.com/woalk
+Free to use, as is, without any warranty and at your own risk.
 ```
