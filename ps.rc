@@ -50,19 +50,18 @@
 
 ### PS1 config.
 
-if [ "`id -u`" -eq 0 ]; then
-    WOALK_USERCOLOR="${_C_BRED}"
-    WOALK_BASHUSERSIGN="\[${_C_RED}\]#\[${_C_}\]"
-else
-    WOALK_USERCOLOR="${_C_BBLUE}"
-    WOALK_BASHUSERSIGN="\[${_C_GREEN}\]\$\[${_C_}\]"
-fi
-
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 
 __w_ps_getusercolor ()
 {
+    if [ "`id -u`" -eq 0 ]; then
+        WOALK_USERCOLOR="${_C_BRED}"
+    else
+        if [ -z "${WOALK_USERCOLOR+x}" ]; then
+            WOALK_USERCOLOR="${_C_BBLUE}"
+        fi
+    fi
     echo "$WOALK_USERCOLOR"
 }
 
@@ -90,6 +89,23 @@ __w_ps_getgitcolor ()
     echo "${WOALK_GITCOLOR}"
 }
 
-PS1="\[${_C_BBLACK}\]${debian_chroot:+($debian_chroot)}\[\$(__w_ps_getusercolor)\]\u\[${_C_}${_BC_}\$(__w_ps_getmachinecolor)\]@\h:\[${_C_}${_BC_}\$(__w_ps_getdircolor)\]\w\[${_C_}${_BC_}\$(__w_ps_getgitcolor)\]\$(__git_ps1)\[${_C_}${_BC_}\] ${WOALK_BASHUSERSIGN} "
+__w_ps_getusersigncolor ()
+{
+    if [ "`id -u`" -eq 0 ]; then
+        echo "${_C_RED}"
+    else
+        echo "${_C_GREEN}"
+    fi
+}
+
+__w_ps_getusersign () {
+    if [ "`id -u`" -eq 0 ]; then
+        echo "#"
+    else
+        echo "\$"
+    fi
+}
+
+PS1="\[${_C_BBLACK}\]${debian_chroot:+($debian_chroot)}\[\$(__w_ps_getusercolor)\]\u\[${_C_}${_BC_}\$(__w_ps_getmachinecolor)\]@\h:\[${_C_}${_BC_}\$(__w_ps_getdircolor)\]\w\[${_C_}${_BC_}\$(__w_ps_getgitcolor)\]\$(__git_ps1)\[${_C_}${_BC_}\] \[\$(__w_ps_getusersigncolor)\]\$(__w_ps_getusersign)\[${_C_}${_BC_}\] "
 
 ### End PS1 config.
