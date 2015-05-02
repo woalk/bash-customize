@@ -19,7 +19,9 @@
 # - WOALK_DIRECTORYCOLOR  The color in which the current directory is colored.
 # - WOALK_GITCOLOR        The color in which the git info (current branch & branch state) is colored.
 # Every variable can contain both, foreground and background color.
-
+#
+# - WOALK_MACHINENAME     This variable can contain any string, which is then displayed as the hostname.
+#                         If not set, the true hostname is used.
 
 # For PS_ variables, the following escape codes are defined:
 #  \a : an ASCII bell character (07)
@@ -89,6 +91,14 @@ __w_ps_getmachinecolor ()
     echo "$WOALK_MACHINECOLOR"
 }
 
+__w_ps_getmachinename ()
+{
+    if [ -z "${WOALK_MACHINENAME+x}" ]; then
+        WOALK_MACHINENAME=`hostname`
+    fi
+    echo "$WOALK_MACHINENAME"
+}
+
 __w_ps_getdircolor ()
 {
     if [ -z "${WOALK_DIRECTORYCOLOR+x}" ]; then
@@ -122,6 +132,6 @@ __w_ps_getusersign () {
     fi
 }
 
-PS1="\[\$(__w_ps_getchrootcolor)\]${debian_chroot:+($debian_chroot)}\[\$(__w_ps_getusercolor)\]\u\[${_C_}${_BC_}\$(__w_ps_getmachinecolor)\]@\h:\[${_C_}${_BC_}\$(__w_ps_getdircolor)\]\w\[${_C_}${_BC_}\$(__w_ps_getgitcolor)\]\$(__git_ps1)\[${_C_}${_BC_}\] \[\$(__w_ps_getusersigncolor)\]\$(__w_ps_getusersign)\[${_C_}${_BC_}\] "
+PS1="\[\$(__w_ps_getchrootcolor)\]${debian_chroot:+($debian_chroot)}\[\$(__w_ps_getusercolor)\]\u\[${_C_}${_BC_}\$(__w_ps_getmachinecolor)\]@\$(__w_ps_getmachinename):\[${_C_}${_BC_}\$(__w_ps_getdircolor)\]\w\[${_C_}${_BC_}\$(__w_ps_getgitcolor)\]\$(__git_ps1)\[${_C_}${_BC_}\] \[\$(__w_ps_getusersigncolor)\]\$(__w_ps_getusersign)\[${_C_}${_BC_}\] "
 
 ### End PS1 config.

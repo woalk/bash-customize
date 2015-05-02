@@ -70,6 +70,10 @@ Use one of the colors from `${_C_...}` or an escape sequence color as variable v
 Every variable can contain both, foreground and background color.
 Don't include a printable character in these variables, otherwise your bash input may get distorted.
 
+Also:
+
+- `WOALK_MACHINENAME` -- This variable can contain any string, which is then displayed as the hostname. If not set, the true hostname is used.
+
 You can add an additional \*.rc file to your `$BASHCUSTOMIZE_DIR` named `configs.rc` (and include it in your bashrc if you did it manually), and store all the variable exports there. This makes identifying and sorting of the configuration variables easier.
 
 ### *More features may be added in the future.*
