@@ -61,6 +61,7 @@ Following can be **customized** by setting environment variables in an bashrc fi
 
 - `WOALK_USERCOLOR` -- The color in which the username is colored. Should be set in each user's .bashrc file.
 - `WOALK_MACHINECOLOR` -- The color in which the host name (@...) is colored. Should only be set in the global bashrc file, so that it is the same for everyone.
+- `WOALK_CHROOTCOLOR` -- The color in which a named Debian chroot environment name is colored. Should only be set in the global bashrc file, so that it is the same for everyone.
 - `WOALK_DIRECTORYCOLOR` -- The color in which the current directory is colored.
 - `WOALK_GITCOLOR`-- The color in which the git info (current branch & branch state) is colored.
 - `WOALK_ROOTUSERCOLOR` -- The color in which the username "root" is colored. Should only be set in the global bashrc file, so that it is the same for everyone.

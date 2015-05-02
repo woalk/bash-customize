@@ -14,6 +14,8 @@
 #                         Should only be set in the global bashrc file, so that it is the same for everyone.
 # - WOALK_MACHINECOLOR    The color in which the host name (@...) is colored.
 #                         Should only be set in the global bashrc file, so that it is the same for everyone.
+# - WOALK_CHROOTCOLOR     The color in which a named Debian chroot environment name is colored.
+#                         Should only be set in the global bashrc file, so that it is the same for everyone.
 # - WOALK_DIRECTORYCOLOR  The color in which the current directory is colored.
 # - WOALK_GITCOLOR        The color in which the git info (current branch & branch state) is colored.
 # Every variable can contain both, foreground and background color.
@@ -54,6 +56,14 @@
 
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
+
+__w_ps_getchrootcolor ()
+{
+    if [ -z "${WOALK_CHROOTCOLOR+x}" ]; then
+        WOALK_CHROOTCOLOR="${_C_BBLACK}"
+    fi
+    echo "$WOALK_CHROOTCOLOR"
+}
 
 __w_ps_getusercolor ()
 {
@@ -112,6 +122,6 @@ __w_ps_getusersign () {
     fi
 }
 
-PS1="\[${_C_BBLACK}\]${debian_chroot:+($debian_chroot)}\[\$(__w_ps_getusercolor)\]\u\[${_C_}${_BC_}\$(__w_ps_getmachinecolor)\]@\h:\[${_C_}${_BC_}\$(__w_ps_getdircolor)\]\w\[${_C_}${_BC_}\$(__w_ps_getgitcolor)\]\$(__git_ps1)\[${_C_}${_BC_}\] \[\$(__w_ps_getusersigncolor)\]\$(__w_ps_getusersign)\[${_C_}${_BC_}\] "
+PS1="\[\$(__w_ps_getchrootcolor)\]${debian_chroot:+($debian_chroot)}\[\$(__w_ps_getusercolor)\]\u\[${_C_}${_BC_}\$(__w_ps_getmachinecolor)\]@\h:\[${_C_}${_BC_}\$(__w_ps_getdircolor)\]\w\[${_C_}${_BC_}\$(__w_ps_getgitcolor)\]\$(__git_ps1)\[${_C_}${_BC_}\] \[\$(__w_ps_getusersigncolor)\]\$(__w_ps_getusersign)\[${_C_}${_BC_}\] "
 
 ### End PS1 config.
