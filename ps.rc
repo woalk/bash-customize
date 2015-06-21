@@ -60,10 +60,28 @@
 # Taken from http://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html / may not correspond to every version of bash.
 
 
+# The command to be executed when a new prompt should be shown.
+PROMPT_COMMAND=__w_ps_promptgen
+
+__w_ps_promptgen () {
+
+    EXITCODE="$?"
+    __w_ps_getifexitcode
+
+    PS1="\[\$(__w_ps_getexitcodecolor)\]${EXITCODESTR}\[\$(__w_ps_getchrootcolor)\]${debian_chroot:+($debian_chroot)}\[\$(__w_ps_getusercolor)\]\u\[${_C_}${_BC_}\$(__w_ps_getmachinecolor)\]@\$(__w_ps_getmachinename):\[${_C_}${_BC_}\$(__w_ps_getdircolor)\]\w\[${_C_}${_BC_}\$(__w_ps_getgitcolor)\]\$(__git_ps1)\[${_C_}${_BC_}\] \[\$(__w_ps_getusersigncolor)\]\$(__w_ps_getusersign)\[${_C_}${_BC_}\] "
+
+    fakeexit $EXITCODE
+    unset EXITCODE
+    unset EXITCODESTR
+
+}
+
 ### PS1 config.
 
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
+
+##  Helper functions for PS1 prompt
 
 __w_ps_getchrootcolor ()
 {
@@ -154,7 +172,5 @@ __w_ps_getifexitcode () {
         echo "($?)\n"
     fi
 }
-
-PS1="\[\$(__w_ps_getexitcodecolor)\]\$(__w_ps_getifexitcode)\[\$(__w_ps_getchrootcolor)\]${debian_chroot:+($debian_chroot)}\[\$(__w_ps_getusercolor)\]\u\[${_C_}${_BC_}\$(__w_ps_getmachinecolor)\]@\$(__w_ps_getmachinename):\[${_C_}${_BC_}\$(__w_ps_getdircolor)\]\w\[${_C_}${_BC_}\$(__w_ps_getgitcolor)\]\$(__git_ps1)\[${_C_}${_BC_}\] \[\$(__w_ps_getusersigncolor)\]\$(__w_ps_getusersign)\[${_C_}${_BC_}\] "
 
 ### End PS1 config.
