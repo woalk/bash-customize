@@ -78,6 +78,7 @@ Also:
  - `"no"` or unset to not show any exit code
  - `"errors"` to only show non-zero exit codes
  - `"yes"` to show all, also zero exit codes
+- `WOALK_SUPPRESS_EXITCODE` -- Set this at the end of a script or command to any value to not show its exit code. Will automatically be unset after that.
 
 You can add an additional \*.rc file to your `$BASHCUSTOMIZE_DIR` named `configs.rc` (and include it in your bashrc if you did it manually), and store all the variable exports there. This makes identifying and sorting of the configuration variables easier.
 
