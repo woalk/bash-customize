@@ -65,6 +65,7 @@ Following can be **customized** by setting environment variables in an bashrc fi
 - `WOALK_DIRECTORYCOLOR` -- The color in which the current directory is colored.
 - `WOALK_GITCOLOR`-- The color in which the git info (current branch & branch state) is colored.
 - `WOALK_ROOTUSERCOLOR` -- The color in which the username "root" is colored. Should only be set in the global bashrc file, so that it is the same for everyone.
+- `WOALK_EXITCODECOLOR` -- The color in which the exit code of the last command is colored, if shown.
 
 Use one of the colors from `${_C_...}` or an escape sequence color as variable value.
 Every variable can contain both, foreground and background color.
@@ -73,6 +74,10 @@ Don't include a printable character in these variables, otherwise your bash inpu
 Also:
 
 - `WOALK_MACHINENAME` -- This variable can contain any string, which is then displayed as the hostname. If not set, the true hostname is used.
+- `WOALK_SHOWEXITCODE` -- This variable can be set to show the exit code after every command execution. It can be:
+ - `"no"` or unset to not show any exit code
+ - `"errors"` to only show non-zero exit codes
+ - `"yes"` to show all, also zero exit codes
 
 You can add an additional \*.rc file to your `$BASHCUSTOMIZE_DIR` named `configs.rc` (and include it in your bashrc if you did it manually), and store all the variable exports there. This makes identifying and sorting of the configuration variables easier.
 

@@ -18,10 +18,16 @@
 #                         Should only be set in the global bashrc file, so that it is the same for everyone.
 # - WOALK_DIRECTORYCOLOR  The color in which the current directory is colored.
 # - WOALK_GITCOLOR        The color in which the git info (current branch & branch state) is colored.
+# - WOALK_EXITCODECOLOR   The color in which the exit code of the last command is colored.
 # Every variable can contain both, foreground and background color.
 #
 # - WOALK_MACHINENAME     This variable can contain any string, which is then displayed as the hostname.
 #                         If not set, the true hostname is used.
+# - WOALK_SHOWEXITCODE    This variable can be set to show the exit code after every command execution.
+#                         It can be:
+#                          - "no" or unset to not show any exit code
+#                          - "errors" to only show non-zero exit codes
+#                          - "yes" to show all, also zero exit codes
 
 # For PS_ variables, the following escape codes are defined:
 #  \a : an ASCII bell character (07)
@@ -132,6 +138,23 @@ __w_ps_getusersign () {
     fi
 }
 
-PS1="\[\$(__w_ps_getchrootcolor)\]${debian_chroot:+($debian_chroot)}\[\$(__w_ps_getusercolor)\]\u\[${_C_}${_BC_}\$(__w_ps_getmachinecolor)\]@\$(__w_ps_getmachinename):\[${_C_}${_BC_}\$(__w_ps_getdircolor)\]\w\[${_C_}${_BC_}\$(__w_ps_getgitcolor)\]\$(__git_ps1)\[${_C_}${_BC_}\] \[\$(__w_ps_getusersigncolor)\]\$(__w_ps_getusersign)\[${_C_}${_BC_}\] "
+__w_ps_getexitcodecolor () {
+    if [ -z "${WOALK_EXITCODECOLOR}" ]; then
+        WOALK_EXITCODECOLOR="${_C_}"
+    fi
+    echo "${WOALK_EXITCODECOLOR}"
+}
+
+__w_ps_getifexitcode () {
+    if [ -z "${WOALK_SHOWEXITCODE}" -o "${WOALK_SHOWEXITCODE}" == "no" ]; then
+        echo ""    # (echo nothing, no number should be shown)
+    elif [ "${WOALK_SHOWEXITCODE}" == "errors" -a "$?" -ne 0 ]; then
+        echo "($?)\n"
+    elif [ "${WOALK_SHOWEXITCODE}" == "yes" ]; then
+        echo "($?)\n"
+    fi
+}
+
+PS1="\[\$(__w_ps_getexitcodecolor)\]\$(__w_ps_getifexitcode)\[\$(__w_ps_getchrootcolor)\]${debian_chroot:+($debian_chroot)}\[\$(__w_ps_getusercolor)\]\u\[${_C_}${_BC_}\$(__w_ps_getmachinecolor)\]@\$(__w_ps_getmachinename):\[${_C_}${_BC_}\$(__w_ps_getdircolor)\]\w\[${_C_}${_BC_}\$(__w_ps_getgitcolor)\]\$(__git_ps1)\[${_C_}${_BC_}\] \[\$(__w_ps_getusersigncolor)\]\$(__w_ps_getusersign)\[${_C_}${_BC_}\] "
 
 ### End PS1 config.
