@@ -41,7 +41,7 @@ export _BC_BLUE="$(tput setab 4)"
 export _BC_MAGENTA="$(tput setab 5)"
 export _BC_CYAN="$(tput setab 6)"
 export _BC_WHITE="$(tput setab 7)"
-export _BC_DEFAULT="$(tput setab 9)"
+export _BC_DEFAULT="$(tput sgr0)"
 export _BC_="${_BC_DEFAULT}"
 
 colorhelp ()
