@@ -82,7 +82,7 @@ Also:
 
 You can add an additional \*.rc file to your `$BASHCUSTOMIZE_DIR` named `configs.rc` (and include it in your bashrc if you did it manually), and store all the variable exports there. This makes identifying and sorting of the configuration variables easier.
 
-### Quickly jumping to a `~/git/...` project directory
+### Quickly jumping to a project directory like `~/git/...` or `~/workspace/...`
 
 `File:` `git-cd.rc`
 
@@ -111,6 +111,10 @@ For the first parameter, there is a abbreviation list, so you can replace the fo
 
 You can also use more than two arguments - the command will treat them as more sub-folders.
 For example, you can use `gcd o company projectname subproject` to jump to `~/git/other/company/projectname/subproject`.
+
+You can customize the name of the base directory for your projects (`git` in all these examples) to another directory inside your home directory:
+
+- `WOALK_GITCD_DIR=workspace` to use `~/workspace` instead.
 
 ### *More features may be added in the future.*
 Just keep this repo up-to-date using `git pull` on your local clone to get updates when available.

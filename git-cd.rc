@@ -3,8 +3,11 @@
 # by woalk
 
 function __gitcddir () {
-    gitcd_result="$HOME/git"
-    
+    if [ -z ${WOALK_GITCD_DIR} ]; then
+        WOALK_GITCD_DIR="git"
+    fi
+    gitcd_result="${HOME}/${WOALK_GITCD_DIR}"
+
     case "$1" in
         "-h") # display help
             echo "Syntax:  ${_C_BWHITE}git-cd${_C_} ${_C_BCYAN}[languageDir]${_C_} ${_C_BYELLOW}[repoOrCategoryDir]${_C_} ${_C_BGREEN}[subrepoDir]${_C_}" >&2
