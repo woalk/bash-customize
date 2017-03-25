@@ -82,6 +82,36 @@ Also:
 
 You can add an additional \*.rc file to your `$BASHCUSTOMIZE_DIR` named `configs.rc` (and include it in your bashrc if you did it manually), and store all the variable exports there. This makes identifying and sorting of the configuration variables easier.
 
+### Quickly jumping to a `~/git/...` project directory
+
+`File:` `git-cd.rc`
+
+`Depends on:` *`no feature, independent`*
+
+`Needs applications:` *`none, independent`*
+
+After including this, you can jump to a project directory of the kind `~/git/type/projectname` by using the command `gcd` or `git-cd`.
+
+(Sadly, Git does not support function resolving, so you can **not** use `git cd`.)
+
+**Example:**
+```sh
+[~]$ gcd android my-super-app
+[~/git/android/my-super-app]$
+```
+
+This function supports Tab auto-completion if you have `bash-completion` installed.
+
+For the first parameter, there is a abbreviation list, so you can replace the following with single letters:
+
+- `a` for `android`
+- `j` for `java`
+- `p` for `php`
+- `o` for `other`
+
+You can also use more than two arguments - the command will treat them as more sub-folders.
+For example, you can use `gcd o company projectname subproject` to jump to `~/git/other/company/projectname/subproject`.
+
 ### *More features may be added in the future.*
 Just keep this repo up-to-date using `git pull` on your local clone to get updates when available.
 

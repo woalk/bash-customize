@@ -1,0 +1,62 @@
+# git cd functions
+# for directory structure ~/git/...
+# by woalk
+
+function __gitcddir () {
+    gitcd_result="$HOME/git"
+    
+    case "$1" in
+        "-h") # display help
+            echo "Syntax:  ${_C_BWHITE}git-cd${_C_} ${_C_BCYAN}[languageDir]${_C_} ${_C_BYELLOW}[repoOrCategoryDir]${_C_} ${_C_BGREEN}[subrepoDir]${_C_}" >&2
+            echo "Shortcut command to cd into ${_C_MAGENTA}~/git/${_C_CYAN}[languageDir]${_C_MAGENTA}/${_C_YELLOW}[repoOrCategoryDir]${_C_MAGENTA}/${_C_GREEN}[subrepoDir]${_C_}." >&2
+            echo "All arguments are optional and represent directories in their obvious order." >&2
+            echo -e "\n${_C_CYAN}languageDir${_C_} can also be one of the following abbreviations:\n" \
+                   "${_C_BWHITE}a${_C_} - ${_C_BWHITE}a${_C_}ndroid\n ${_C_BWHITE}j${_C_} - ${_C_BWHITE}j${_C_}ava\n ${_C_BWHITE}o${_C_} - ${_C_BWHITE}o${_C_}ther\n ${_C_BWHITE}p${_C_} - ${_C_BWHITE}p${_C_}hp" >&2
+            return 0
+            ;;
+        # do the actual function
+        "a") gitcd_result="${gitcd_result}/android";;
+        "j") gitcd_result="${gitcd_result}/java";;
+        "o") gitcd_result="${gitcd_result}/other";;
+        "p") gitcd_result="${gitcd_result}/php";;
+        *  ) gitcd_result="${gitcd_result}/$1";;
+    esac
+
+    if [ -n $2 ]; then
+        gitcd_result="${gitcd_result}/$2"
+    fi
+    if [ -n $3 ]; then
+        gitcd_result="${gitcd_result}/$3"
+    fi
+
+    echo $gitcd_result
+}
+
+function git-cd () {
+    cd "$(__gitcddir $@)"
+}
+
+function gcd () {
+    git-cd $@
+}
+
+function _git-cd () {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local arg1=${COMP_WORDS[1]}
+    local arg2=${COMP_WORDS[2]}
+    
+    #IFS='\n'
+    if [ "$COMP_CWORD" -eq "2" ]; then
+         COMPREPLY=( $(compgen -W "$(ls $(__gitcddir "$arg1"))" -- $cur) )
+    elif [ "$COMP_CWORD" -eq "3" ]; then
+         COMPREPLY=( $(compgen -W "$(ls $(__gitcddir "$arg1" "$arg2"))" -- $cur) ) 
+    elif [ "$COMP_CWORD" -gt "3" ]; then
+         unset COMPREPLY
+    else 
+         COMPREPLY=( $(compgen -W "a j o p $(ls $(__gitcddir))" -- $cur) )
+    fi
+}
+
+complete -F _git-cd git-cd
+complete -F _git-cd gcd
+
