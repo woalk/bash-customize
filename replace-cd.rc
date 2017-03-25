@@ -1,0 +1,44 @@
+# replace-cd
+# Replacing words in current working directory
+# by woalk
+
+function __replace-cd () {
+    local WOALK_WORKINGDIR=$(pwd)
+    local WOALK_SUBSTR=$1
+    local WOALK_REPLACE=$2
+    # replace all occurences of $WOALK_SUBSTR in $WOALK_NEWDIR with $WOALK_REPLACE
+    local WOALK_NEWDIR=${WOALK_WORKINGDIR//$WOALK_SUBSTR/$WOALK_REPLACE}
+    echo $WOALK_NEWDIR
+}
+
+function replace-cd () {
+    cd $(__replace-cd $@)
+}
+
+function rcd () {
+    replace-cd $@
+}
+
+function _replace-cd () {
+    local dir="$(pwd)/"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local arg1=${COMP_WORDS[1]}
+
+    if [ "$COMP_CWORD" -eq "1" ]; then
+        IFS='/'
+        COMPREPLY=( $(compgen -W "$dir" -- $cur) )
+        unset IFS
+    elif [ "$COMP_CWORD" -eq "2" ]; then
+        if [[ $cur == *"/"* ]]; then
+            local subdir=${cur%/*}
+            COMPREPLY=( $(compgen -W "${subdir}/$(ls ${dir%%/${arg1}*/}/../${subdir})" -- ${cur##*/}) )
+        else
+            COMPREPLY=( $(compgen -W "$(ls ${dir%%/${arg1}*/}/..)" -- $cur) )
+        fi
+    else
+         unset COMPREPLY
+    fi
+}
+
+complete -F _replace-cd replace-cd
+complete -F _replace-cd rcd

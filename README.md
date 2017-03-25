@@ -116,6 +116,29 @@ You can customize the name of the base directory for your projects (`git` in all
 
 - `WOALK_GITCD_DIR=workspace` to use `~/workspace` instead.
 
+### ZSH-like "replacing cd"
+
+`File:` `replace-cd.rc`
+
+`Depends on:` *`no feature, independent`*
+
+`Needs applications:` *`none, independent`*
+
+With this you can now use the command `replace-cd` or `rcd` to quickly replace a part of your current working path with another substring.
+
+**Example:**
+```sh
+[/usr/local/man]$ rcd local share
+[/usr/share/man]$
+```
+
+ZSH has this feature if you use `cd` with two parameters (in this example: `cd local share`).
+I guess some will appreciate bash being capable of exactly the same thing.
+
+This command supports Tab auto-completion if you have `bash-completion` installed.
+
+**_Path expansion, more complex completion and longer path replacing with this command is a work-in-progress though._**
+
 ### *More features may be added in the future.*
 Just keep this repo up-to-date using `git pull` on your local clone to get updates when available.
 
