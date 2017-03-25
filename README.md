@@ -144,7 +144,7 @@ Just keep this repo up-to-date using `git pull` on your local clone to get updat
 
 
 ```
-COPYRIGHT (C) 2015 Alexander Köster.
+COPYRIGHT (C) 2017 Alexander Köster.
 http://woalk.com  https://github.com/woalk
 Free to use, as is, without any warranty and at your own risk.
 ```
